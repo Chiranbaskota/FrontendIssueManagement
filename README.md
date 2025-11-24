@@ -1,4 +1,4 @@
-# Issue Management System - Angular Frontend
+# Issue Management System  Angular Frontend
 
 Complete Angular v20+ frontend for the Issue Management System backend.
 
