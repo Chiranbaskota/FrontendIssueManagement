@@ -1,0 +1,68 @@
+<div class="admin-container">
+
+  <!-- HEADER -->
+  <header class="header">
+    <h2>Admin – Post Management</h2>
+  </header>
+
+  <div class="content">
+
+    <!-- LEFT SIDE: POST LIST -->
+    <section class="post-list-section">
+      <div class="section-title">
+        <h3>All Posts</h3>
+        <input type="text" placeholder="Search posts..." class="search-box" />
+      </div>
+
+      <div class="post-card" *ngFor="let post of posts" (click)="selectPost(post)">
+        <div class="post-header">
+          <h4>{{ post.title }}</h4>
+          <span class="status {{ post.status | lowercase }}">{{ post.status }}</span>
+        </div>
+
+        <p class="post-desc">{{ post.description }}</p>
+
+        <div class="meta">
+          <small>Created By: {{ post.createdBy }}</small>
+          <small>Created: {{ post.createdAt | date }}</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT SIDE: POST DETAILS + ACTIONS -->
+    <section class="details-section" *ngIf="selectedPost">
+      <h3>Post Details</h3>
+
+      <div class="details-card">
+        <h2>{{ selectedPost.title }}</h2>
+        <p>{{ selectedPost.description }}</p>
+
+        <div class="details-meta">
+          <p><strong>Status:</strong> {{ selectedPost.status }}</p>
+          <p><strong>Created By:</strong> {{ selectedPost.createdBy }}</p>
+          <p><strong>Last Updated:</strong> {{ selectedPost.updatedAt | date }}</p>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="actions">
+          <!-- BOTH ADMIN & USER -->
+          <button class="btn primary" (click)="submitPost(selectedPost.id)">Submit</button>
+
+          <!-- ONLY ADMIN -->
+          <button class="btn success" (click)="approvePost(selectedPost.id)">Approve</button>
+          <button class="btn danger" (click)="rejectPost(selectedPost.id)">Reject</button>
+          <button class="btn warning" (click)="closePost(selectedPost.id)">Close</button>
+        </div>
+
+        <!-- ASSIGN UPDATE (ADMIN ONLY) -->
+        <div class="assign-update">
+          <h4>Assign / Update</h4>
+          <textarea placeholder="Write update..." [(ngModel)]="updateText"></textarea>
+          <button class="btn info" (click)="assignUpdate(selectedPost.id)">Update</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</div>
